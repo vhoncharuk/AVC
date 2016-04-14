@@ -1,0 +1,69 @@
+﻿@model string
+@{
+    ViewBag.Title = "Головна сторінка";
+}
+
+@section scripts
+{
+	<script src="~/Scripts/Products/product-controller.js"></script>
+	<script src="~/Scripts/MainMenuBuilder.js"></script>
+	<script src="~/Scripts/jquery-ui.min.js"></script>
+	<link href="~/Scripts/jquery-ui.css" rel="stylesheet" />
+
+	<script type="text/javascript">
+		var idCategory = '@ViewBag.idCategory';
+		productModule.factory('bootstrappedProduct', [
+			'$http', function($http) {
+				var bootstrappedProduct = {};
+				bootstrappedProduct.getStudents = function (id) {
+					return $http.get('/home/api/' + id);
+				};
+				return bootstrappedProduct;
+			}
+		]);
+
+		
+	</script>
+}
+<div class="container" ng-controller="ProductController">
+
+
+	<div class="col-md-3">
+		<div style="width: 280px">
+			<ul id="menu" ng-click="menuClick($event)"> </ul>
+		</div>
+	</div>
+<div class="col-md-4">
+	<div class="row">
+		<div class="span10">
+			<h2>{{category}}</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span10">
+			<table class="table table-condensed table-hover">
+				<tr>
+					<th>Детали</th>
+					<th>Код</th>
+					<th>Артикул</th>
+					<th>Назва</th>
+					<th>Гарантия</th>
+					<th>Цена</th>
+					<th>Цена грн</th>
+
+				</tr>
+				<tr ng-repeat="product in products">
+					<td ng-click="open()"><img src="~/Content/product-details-icon.png"/></td>
+					<td> {{product.code}}</td>
+					<td> {{product.article}}</td>
+					<td> {{product.name}}</td>
+					<td> {{product.warranty}}</td>
+					<td> {{product.priceUSD | currency}}</td>
+					<td> {{product.priceUSD * "25.8" | number : 0}} грн</td>
+					<td hidden="true"> {{product.url}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+	</div>

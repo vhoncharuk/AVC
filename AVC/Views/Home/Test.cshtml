@@ -1,0 +1,52 @@
+﻿@model AVC.Models.Products
+@{
+    ViewBag.Title = "Головна сторінка";
+}
+
+@section scripts
+{
+
+    <script src="~/Scripts/Products/product-controller.js"></script>
+    <script type="text/javascript">
+        var testProducts = '@Model';
+        console.log(testProducts);
+        productModule.factory('bootstrappedProduct', function () {
+            return {
+                products: testProducts//[{ "nid_product": 0, "cname": "CREA101", "ncode": null, "ccrticul": null, "nExist": 0, "nprice_d": 12.0 }, { "nid_product": 0, "cname": "DARK502", "nprice_d": 13.0 }, { "nid_product": 0, "cname": "TRAN201", "nprice_d": 14.0 }]
+                //get: function () {
+                //    var deferred = $q.defer();
+                //    $http.get('/Home/test/').success(deferred.resolve).error(deferred.reject);
+                //    //console.log(deferred.resolve);
+                //    return deferred.promise;
+                //}
+            };
+        });
+
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span10">
+            <h2>Products</h2>
+        </div>
+    </div>
+    <div class="row" ng-controller="ProductController">
+        <div class="span10">
+            <table class="table table-condensed table-hover">
+                <tr>
+                    <th>Product name</th>
+                    <th>Product price</th>
+                    <th>Warrante</th>
+                </tr>
+                <tr ng-repeat="product in products">
+                    <td> {{product.cname}}</td>
+                    <td> {{product.nprice_d}}</td>
+                    <td> {{product.ngaranty}}</td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
